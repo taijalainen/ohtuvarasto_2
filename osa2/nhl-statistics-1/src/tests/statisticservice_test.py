@@ -18,6 +18,28 @@ class TestStatisticsService(unittest.TestCase):
         self.stats = StatisticsService(
             PlayerReaderStub()
         )
-    def test_tulosta(self):
-        # https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertAlmostEqual
-        self.assertAlmostEqual(self.stats, 5)
+    def test_search(self):
+        player = StatisticsService.search(self.stats, "Semenko")
+
+        self.assertIsNotNone("Player 'Semenko' should be found")
+        self.assertEqual(player.name, "Semenko")
+        self.assertEqual(player.team, "EDM")
+        self.assertEqual(player.goals, 4)
+        self.assertEqual(player.assists, 12)
+
+    def test_team(self):
+        player_of_team = StatisticsService.team(self.stats, "EDM")
+        player_names = [player.name for player in player_of_team]
+
+        self.assertIn("Semenko", player_names)
+        self.assertIn("Kurri", player_names)
+        self.assertIn("Gretzky", player_names)
+
+    def test_top_players(self):
+    
+        top_players = StatisticsService.top(self.stats, 2)
+        #koodissa on virhe palauttaa 3
+        self.assertEqual(len(top_players), 2)
+        self.assertEqual(top_players[0].name, "Gretzky")
+        self.assertEqual(top_players[1].name, "Lemieux")
+
