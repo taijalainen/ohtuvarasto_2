@@ -2,7 +2,7 @@ class App:
     def __init__(self, user_sevice, io):
         self.user_sevice = user_sevice
         self.io = io
-
+        
     def run(self):
         while True:
             command = self.io.read("Command (new or login): ")

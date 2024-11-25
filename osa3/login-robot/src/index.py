@@ -7,6 +7,7 @@ from app import App
 def main():
     user_repository = UserRepository()
     user_service = UserService(user_repository)
+
     console_io = ConsoleIO()
     app = App(user_service, console_io)
 
